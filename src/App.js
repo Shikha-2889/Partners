@@ -1,17 +1,10 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-import PartnerTable from './components/PartnerTable';
-import PartnerDetail from './components/PartnerDetails';
+import PartnerScreen from "./components/Partners"
+import 'antd/dist/antd.min.css'
 
 function App() {
-  return (
-    <>
-    <PartnerDetail/>
-    <PartnerTable/>
-    
-    </>
-    
-  );
+  return (<PartnerScreen />);
 }
 
 export default App;
