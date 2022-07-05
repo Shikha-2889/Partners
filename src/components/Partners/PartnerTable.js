@@ -2,17 +2,22 @@ import React from 'react';
 import { Table } from 'antd';
 import { partnersUrl } from '../../config/config';
 import PartnerDetail from './PartnerDetails';
+import { Pagination} from 'antd';
 
 const PartnerTable = (props) => {
     const [data, setData] = React.useState([]);
     const [pagination, setPagination] = React.useState({
         page: 1,
-        results: 20
+        results: 5,
+        
     })
+
+
+
     const col = [
         {
             title: 'Type',
-            key: "companyName"
+            dataIndex: "type"
         },
         {
             title: 'Company Name',
@@ -20,23 +25,25 @@ const PartnerTable = (props) => {
         },
         {
             title: 'Name of Owner',
-            key: "companyName"
+            dataIndex: "user",
+            render:(item) =>{return <p>{item.first_name+" " +item.last_name}</p>}
         },
         {
             title: 'Contact Number',
-            key: "companyName"
+            dataIndex: "phone"
         },
         {
             title: 'Email',
-            key: "companyName"
+            dataIndex: "user",
+            render:item=>item.email
         },
         {
             title: 'Address',
-            key: "companyName"
+            dataIndex: "address"
         },
         {
             title: 'Year of Establishment',
-            key: "companyName"
+            dataIndex: "establishedIn"
         },
 
     ]
@@ -48,6 +55,8 @@ const PartnerTable = (props) => {
                 response.json().then(json => {
                     console.log(json)
                     setData(json['results'])
+                    setPagination({total:json['count']})
+                    
                 })
             }
         })
@@ -57,8 +66,16 @@ const PartnerTable = (props) => {
         getData(pagination)
     }, [])
 
+    const onChangePage=(page)=>{
+        console.log(page)
+    }
+
     return (
-        <Table columns={col} dataSource={data} rowKey={(item) => item.id.toString()} />
+        <>
+        <Table columns={col} dataSource={data} rowKey={(item) => item.id.toString()} pagination={pagination} />
+        <Pagination current ={pagination["page"]} onChange={onChangePage} total={10} />
+        </>
+        
     )
 
 }
