@@ -2,17 +2,15 @@ import React from 'react';
 import { Table } from 'antd';
 import { partnersUrl } from '../../config/config';
 import PartnerDetail from './PartnerDetails';
-import { Pagination} from 'antd';
+
 
 const PartnerTable = (props) => {
     const [data, setData] = React.useState([]);
     const [pagination, setPagination] = React.useState({
         page: 1,
-        results: 5,
-        
+        results: 3,
+
     })
-
-
 
     const col = [
         {
@@ -26,7 +24,7 @@ const PartnerTable = (props) => {
         {
             title: 'Name of Owner',
             dataIndex: "user",
-            render:(item) =>{return <p>{item.first_name+" " +item.last_name}</p>}
+            render: (item) => { return <p>{item.first_name + " " + item.last_name}</p> }
         },
         {
             title: 'Contact Number',
@@ -35,7 +33,7 @@ const PartnerTable = (props) => {
         {
             title: 'Email',
             dataIndex: "user",
-            render:item=>item.email
+            render: item => item.email
         },
         {
             title: 'Address',
@@ -55,8 +53,8 @@ const PartnerTable = (props) => {
                 response.json().then(json => {
                     console.log(json)
                     setData(json['results'])
-                    setPagination({total:json['count']})
-                    
+                    setPagination({ ...pagination, total: json['count'] })
+
                 })
             }
         })
@@ -64,18 +62,31 @@ const PartnerTable = (props) => {
 
     React.useEffect(() => {
         getData(pagination)
-    }, [])
+    }, [pagination.page])
 
-    const onChangePage=(page)=>{
+    const onChangePage = (page) => {
         console.log(page)
     }
 
     return (
         <>
-        <Table columns={col} dataSource={data} rowKey={(item) => item.id.toString()} pagination={pagination} />
-        <Pagination current ={pagination["page"]} onChange={onChangePage} total={10} />
+            <Table
+                columns={col}
+                dataSource={data}
+                rowKey={(item) => item.id.toString()}
+                pagination={{
+                    pageSize: pagination['results'],
+                    total: pagination['total'],
+                    onChange: (page,pageSize) => {
+                         console.log(page,pageSize)
+                         setPagination({...pagination,page:page})
+                         console.log("Page is ",pagination.page)
+                        
+                        },
+                }} />
+
         </>
-        
+
     )
 
 }

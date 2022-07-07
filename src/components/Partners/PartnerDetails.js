@@ -59,7 +59,7 @@ const PartnerDetail = (props) => {
     }
 
 
-    const getData = async () => {
+   /* const getData = async () => {
         fetch('http://partners.webologixglobal.com/api/v1/users/partners/?id=' + props.id,
             {
                 method: 'get'
@@ -73,7 +73,7 @@ const PartnerDetail = (props) => {
 
     useEffect(() => {
         getData()
-    })
+    })*/
 
 
 
