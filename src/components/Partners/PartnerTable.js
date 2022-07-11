@@ -43,6 +43,11 @@ const PartnerTable = (props) => {
             title: 'Year of Establishment',
             dataIndex: "establishedIn"
         },
+        {
+            title: 'Action',
+            dataIndex: 'user',
+            render :(item)=><PartnerDetail btn="View"/>
+        }
 
     ]
 

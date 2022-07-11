@@ -12,6 +12,7 @@ const PartnerDetail = (props) => {
     const [fieldvisible, setfieldVisible] = useState(false)
     const [showhide, setShowHide] = useState(true)
     const [form] = Form.useForm()
+    console.log(props)
 
     const showDrawer = () => {
         setVisible(true)
@@ -56,34 +57,22 @@ const PartnerDetail = (props) => {
             console.log(err)
         }
 
-    }
-
-
-   /* const getData = async () => {
-        fetch('http://partners.webologixglobal.com/api/v1/users/partners/?id=' + props.id,
-            {
-                method: 'get'
-
-            })
-            .then(response => { console.log(response) })
-            .then(data => { console.log(data) })
-            .catch(error => { console.log(error) })
 
     }
 
-    useEffect(() => {
-        getData()
-    })*/
-
-
-
-
+   /* if(props.btn =="View"){
+        var button = <Button type="primary" onClick={showDrawer}>View</Button>
+    }
+    else{
+        var button = <Button type="primary" onClick={showDrawer}>Add New</Button>
+    }*/
 
 
 
     return (
-        <>
-            <Button type="primary" onClick={showDrawer}>Add New</Button>
+        <>  
+            {button}
+            
             <Drawer
                 title="Add New Partner"
                 width="45%"
@@ -386,8 +375,9 @@ const PartnerDetail = (props) => {
                 </Form>
             </Drawer>
 
-
+            
         </>
+                    
     )
 
 }
